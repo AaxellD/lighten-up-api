@@ -2,15 +2,13 @@
 $dbconn = pg_connect("host=localhost dbname=lighten-up");
 
 class Joke {
-  public $category;
-  public $title;
-  public $description;
+  public $setup;
+  public $delivery;
   public $id;
 
-  public function __construct($category, $title, $description, $id){
-    $this->category = $category;
-    $this->title = $title;
-    $this->description = $description;
+  public function __construct($setup, $delivery, $id){
+    $this->setup = $setup;
+    $this->delivery = $delivery;
     $this->id = $id;
   }
 }
@@ -24,9 +22,8 @@ class Jokes {
     $row_object = pg_fetch_object($results);
     while($row_object){
       $new_joke = new Joke(
-        $row_object->category,
-        $row_object->title,
-        $row_object->description,
+        $row_object->setup,
+        $row_object->delivery,
         intval($row_object->id)
       );
       $jokes[] = $new_joke;
@@ -36,15 +33,15 @@ class Jokes {
   }
 
   static function create($joke){
-    $query = "INSERT INTO jokes (category, title, description) VALUES ($1, $2, $3)";
-    $query_params = array($joke->category, $joke->title, $joke->description);
+    $query = "INSERT INTO jokes (setup, delivery,) VALUES ($1, $2)";
+    $query_params = array($joke->setup, $joke->$delivery);
     pg_query_params($query, $query_params);
     return self::all();
   }
 
   static function update($updated_joke){
-      $query = "UPDATE jokes SET category = $1, title = $2, description = $3 WHERE id = $4";
-      $query_params = array($updated_joke->category, $updated_joke->title, $updated_joke->description, $updated_joke->id);
+      $query = "UPDATE jokes SET setup = $1, delivery = $2, WHERE id = $3";
+      $query_params = array($updated_joke->setup, $updated_joke->delivery, $updated_joke->id);
       $result = pg_query_params($query, $query_params);
 
       return self::all();
