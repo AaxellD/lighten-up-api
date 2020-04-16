@@ -33,7 +33,7 @@ class Jokes {
   }
 
   static function create($joke){
-    $query = "INSERT INTO jokes (setup, delivery,) VALUES ($1, $2)";
+    $query = "INSERT INTO jokes (setup, delivery) VALUES ($1, $2)";
     $query_params = array($joke->setup, $joke->$delivery);
     pg_query_params($query, $query_params);
     return self::all();
