@@ -16,7 +16,7 @@ elseif ($_REQUEST['action'] === 'post') {
   echo $request_body;
   echo '!!!!!!!!!!!!!!!!!!!!!!!!';
   $body_object = json_decode($request_body);
-  $new_joke = new Joke(null, $body_object->setup, $body_object->$delivery);
+  $new_joke = new Joke(null, $body_object->setup, $body_object->delivery);
   $all_jokes = Jokes::create($new_joke);
   echo json_encode($all_jokes);
 }
