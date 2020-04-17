@@ -1,5 +1,15 @@
 <?php
-$dbconn = pg_connect("host=localhost dbname=lighten-up");
+// $dbconn = pg_connect("
+// host=localhost 
+// dbname=lighten-up
+// ");
+$dbconn = pg_connect("
+host=localhost 
+dbname=lighten-up
+user=btngpbkauucvsj
+password=8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f
+port=5432
+");
 
 class Joke {
   public $setup;
