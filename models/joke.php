@@ -1,20 +1,23 @@
 <?php
 
-// $dbconn = pg_connect("
-// host=localhost 
-// dbname=lighten-up
-// ");
-
-// $dbconn = pg_connect("
-// host=localhost 
-// dbname=lighten-up
-// user=btngpbkauucvsj
-// password=8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f
-// port=5432
-// ");
-
-$db = parse_url(getenv('DATABASE_URL')) ?:"postgres://btngpbkauucvsj:8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f@ec2-3-211-48-92.compute-1.amazonaws.com:5432/dambb0tr497ddb";
-$db["path"] = ltrim($db["path"], "/");
+$dbconn = null;
+if(getenv('DATABASE_URL')){
+    $connectionConfig = parse_url(getenv('DATABASE_URL'));
+    $host = $connectionConfig['host'];
+    $user = $connectionConfig['user'];
+    $password = $connectionConfig['pass'];
+    $port = $connectionConfig['port'];
+    $dbname = trim($connectionConfig['path'],'/');
+    $dbconn = pg_connect(
+        "host=".$host." ".
+        "user=".$user." ".
+        "password=".$password." ".
+        "port=".$port." ".
+        "dbname=".$dbname
+    );
+} else {
+    $dbconn = pg_connect("host=localhost dbname=phpapi");
+}
 
 $dbconn = pg_connect($db);
 
