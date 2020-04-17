@@ -14,6 +14,8 @@
 // ");
 
 $db = parse_url(getenv('DATABASE_URL')) ?:"postgres://btngpbkauucvsj:8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f@ec2-3-211-48-92.compute-1.amazonaws.com:5432/dambb0tr497ddb";
+$db["path"] = ltrim($db["path"], "/");
+
 $dbconn = pg_connect($db);
 
 class Joke {
@@ -61,7 +63,7 @@ class Jokes {
 
       return self::all();
     }
-    
+
     static function delete($id){
       $query = "DELETE FROM jokes WHERE id = $1";
       $query_params = array($id);
