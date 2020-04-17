@@ -3,13 +3,15 @@
 // host=localhost 
 // dbname=lighten-up
 // ");
-$dbconn = pg_connect("
-host=localhost 
-dbname=lighten-up
-user=btngpbkauucvsj
-password=8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f
-port=5432
-");
+// $dbconn = pg_connect("
+// host=localhost 
+// dbname=lighten-up
+// user=btngpbkauucvsj
+// password=8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f
+// port=5432
+// ");
+$db = parse_url(getenv('DATABASE_URL')) ?:"postgres://btngpbkauucvsj:8fe7e57c32ccdafa77f10b405ba83e226af1281b399fb9f3fe501a9a8125c29f@ec2-3-211-48-92.compute-1.amazonaws.com:5432/dambb0tr497ddb";
+$dbconn = pg_connect($db);
 
 class Joke {
   public $setup;
