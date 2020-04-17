@@ -6,8 +6,8 @@ header('Content-Type: application/json');
 if ($_REQUEST['action'] === 'index') {
   echo json_encode(Jokes::all());
 }
-
-elseif ($_REQUEST['action'] === 'joke') {
+                          // Was 'joke'
+elseif ($_REQUEST['action'] === 'post') {
   $request_body = file_get_contents('php://input');
   $body_object = json_decode($request_body);
   $new_joke = new Joke(null, $body_object->setup, $body_object->$delivery);
