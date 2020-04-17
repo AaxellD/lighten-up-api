@@ -12,6 +12,9 @@ if ($_REQUEST['action'] === 'index') {
 
 elseif ($_REQUEST['action'] === 'post') {
   $request_body = file_get_contents('php://input');
+  echo '!!!!!!!!!!!!!!!!!!!!!!!!';
+  echo $request_body;
+  echo '!!!!!!!!!!!!!!!!!!!!!!!!';
   $body_object = json_decode($request_body);
   $new_joke = new Joke(null, $body_object->setup, $body_object->$delivery);
   $all_jokes = Jokes::create($new_joke);
