@@ -9,7 +9,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 if ($_REQUEST['action'] === 'index') {
   echo json_encode(Jokes::all());
 }
-                          // Was 'joke'
+
 elseif ($_REQUEST['action'] === 'post') {
   $request_body = file_get_contents('php://input');
   $body_object = json_decode($request_body);
