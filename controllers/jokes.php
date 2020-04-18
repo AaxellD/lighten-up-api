@@ -2,9 +2,9 @@
 include_once __DIR__ . '/../models/joke.php';
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+// header('Access-Control-Allow-Origin: *');
+// header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+// header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 if ($_REQUEST['action'] === 'index') {
   echo json_encode(Jokes::all());
@@ -12,9 +12,9 @@ if ($_REQUEST['action'] === 'index') {
 
 elseif ($_REQUEST['action'] === 'post') {
   $request_body = file_get_contents('php://input');
-  echo '!!!!!!!!!!!!!!!!!!!!!!!! \n';
-  echo $request_body;
-  echo '!!!!!!!!!!!!!!!!!!!!!!!!\n';
+  // echo '!!!!!!!!!!!!!!!!!!!!!!!! \n';
+  // echo $request_body;
+  // echo '!!!!!!!!!!!!!!!!!!!!!!!!\n';
   $body_object = json_decode($request_body);
   $new_joke = new Joke(null, $body_object->setup, $body_object->delivery);
   $all_jokes = Jokes::create($new_joke);
