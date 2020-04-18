@@ -24,10 +24,10 @@ class Joke {
   public $delivery;
   public $id;
 
-  public function __construct($setup, $delivery, $id){
+  public function __construct($id, $setup, $delivery){
+    $this->id = $id;
     $this->setup = $setup;
     $this->delivery = $delivery;
-    $this->id = $id;
   }
 }
 
@@ -40,9 +40,9 @@ class Jokes {
     $row_object = pg_fetch_object($results);
     while($row_object){
       $new_joke = new Joke(
+        intval($row_object->id),
         $row_object->setup,
-        $row_object->delivery,
-        intval($row_object->id)
+        $row_object->delivery
       );
       $jokes[] = $new_joke;
       $row_object = pg_fetch_object($results);
@@ -57,7 +57,7 @@ class Jokes {
     return self::all();
   }
 
-  static function update($updated_joke){
+  static function update($updated_joke){ 
       $query = "UPDATE jokes SET setup = $1, delivery = $2 WHERE id = $3";
       $query_params = array($updated_joke->setup, $updated_joke->delivery, $updated_joke->id);
       $result = pg_query_params($query, $query_params);
