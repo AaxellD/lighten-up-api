@@ -24,10 +24,10 @@ class Joke {
   public $delivery;
   public $id;
 
-  public function __construct($id, $setup, $delivery){
-    $this->id = $id;
+  public function __construct($setup, $delivery, $id){
     $this->setup = $setup;
     $this->delivery = $delivery;
+    $this->id = $id;
   }
 }
 
@@ -40,9 +40,9 @@ class Jokes {
     $row_object = pg_fetch_object($results);
     while($row_object){
       $new_joke = new Joke(
-        intval($row_object->id),
         $row_object->setup,
-        $row_object->delivery
+        $row_object->delivery,
+        intval($row_object->id)
       );
       $jokes[] = $new_joke;
       $row_object = pg_fetch_object($results);
@@ -53,9 +53,6 @@ class Jokes {
   static function create($joke){
     $query = "INSERT INTO jokes (setup, delivery) VALUES ($1, $2)";
     $query_params = array($joke->setup, $joke->delivery);
-    // echo ' \n ???????????????????????? \n ' ;
-    // echo $query;
-    // echo ' \n ???????????????????????? \n ';
     pg_query_params($query, $query_params);
     return self::all();
   }
