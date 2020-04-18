@@ -16,7 +16,7 @@ if(getenv('DATABASE_URL')){
         "dbname=".$dbname
     );
 } else {
-    $dbconn = pg_connect("host=localhost dbname=jokes");
+    $dbconn = pg_connect("host=localhost dbname=jokes user=postgres password=blackdra9891");
 }
 
 class Joke {
@@ -53,9 +53,6 @@ class Jokes {
   static function create($joke){
     $query = "INSERT INTO jokes (setup, delivery) VALUES ($1, $2)";
     $query_params = array($joke->setup, $joke->delivery);
-    echo ' \n ???????????????????????? \n ' ;
-    echo $query;
-    echo ' \n ???????????????????????? \n ';
     pg_query_params($query, $query_params);
     return self::all();
   }
@@ -76,4 +73,3 @@ class Jokes {
       return self::all();
     }
 }
-?>
